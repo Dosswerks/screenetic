@@ -36,6 +36,11 @@ export function URLEntryScreen() {
       <TermsModal onAccept={() => setTermsAccepted(true)} />
 
       <div className="url-entry-card">
+        <img
+          src={`${import.meta.env.BASE_URL}logo.png`}
+          alt="Screenetic logo"
+          className="url-entry-logo"
+        />
         <h1>What URL do you want to test?</h1>
         <p className="url-entry-subtitle">Enter a URL to compare across devices or generate a compatibility report.</p>
 
