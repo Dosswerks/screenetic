@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useDevices } from '../contexts/DeviceContext';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import type {
+  DeviceEntry,
   DeviceSelectorState,
   PerformanceMetrics,
   DetectedIssue,
@@ -79,7 +80,7 @@ export function ReportDetailScreen() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const { accessToken, user } = useAuth();
-  const { allDevices } = useDevices();
+  const { devices: allDevices } = useDevices();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(true);
@@ -187,7 +188,7 @@ export function ReportDetailScreen() {
 
   // Device display name helper
   function deviceDisplayName(config: DeviceSelectorState): string {
-    const entry = allDevices.find(d => d.id === config.deviceId);
+    const entry = allDevices.find((d: DeviceEntry) => d.id === config.deviceId);
     if (entry) return `${entry.manufacturer} ${entry.model}`;
     return `Custom (${config.width}×${config.height})`;
   }
