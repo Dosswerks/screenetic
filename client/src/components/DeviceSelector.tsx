@@ -12,7 +12,7 @@ const BROWSERS = ['Safari', 'Chrome', 'Firefox', 'Samsung Internet', 'Default'];
 
 export function DeviceSelector({ value, onChange, label }: DeviceSelectorProps) {
   const { phones, tablets, desktops, devices } = useDevices();
-  const [search, setSearch] = useState('');
+  const [search, _setSearch] = useState(''); // TODO: wire up search input in Phase 2
   const [showCustom, setShowCustom] = useState(false);
 
   const filteredDevices = useMemo(() => {
