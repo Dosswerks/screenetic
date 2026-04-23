@@ -187,6 +187,12 @@ main { flex: 1; padding: 24px; max-width: 1400px; margin: 0 auto; width: 100%; }
 
 @media (max-width: 768px) {
   .url-entry-screen { padding-top: 30px; }
+  .url-entry-logo {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 24px;
+}
   .url-entry-card h1 { font-size: 22px; }
   .mode-buttons { flex-direction: column; }
   .mode-btn { min-width: auto; }
