@@ -575,16 +575,17 @@ export function ReportScreen() {
 
 // ===== ScreenshotImage helper =====
 
-function ScreenshotImage({ blob, alt }: { blob: Blob; alt: string }) {
+function ScreenshotImage({ blob, alt }: { blob: Blob | null | undefined; alt: string }) {
   const [src, setSrc] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!blob || blob.size === 0) { setSrc(null); return; }
     const objectUrl = URL.createObjectURL(blob);
     setSrc(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
   }, [blob]);
 
-  if (!src) return null;
+  if (!src) return <p className="rs-screenshot-placeholder"><span className="rs-placeholder-text">Screenshot unavailable (cross-origin page)</span></p>;
   return <img className="rs-screenshot" src={src} alt={alt} />;
 }
 
@@ -595,12 +596,13 @@ function ScreenshotImage({ blob, alt }: { blob: Blob; alt: string }) {
  * Only creates the object URL when the element scrolls into view.
  * Revokes the URL when scrolled far away to respect the 3-blob memory cap.
  */
-function LazyScreenshotImage({ blob, alt }: { blob: Blob; alt: string }) {
+function LazyScreenshotImage({ blob, alt }: { blob: Blob | null | undefined; alt: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [src, setSrc] = useState<string | null>(null);
   const objectUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
+    if (!blob || blob.size === 0) return;
     const el = containerRef.current;
     if (!el) return;
 
