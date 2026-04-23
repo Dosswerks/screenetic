@@ -6,15 +6,16 @@ const MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
 export function saveSession(state: Partial<SessionState>): void {
   try {
     const existing = loadSession();
+    const now = new Date().toISOString();
     const merged: SessionState = {
       url: '',
       mode: 'report',
       termsAcceptedAt: null,
-      savedAt: new Date().toISOString(),
+      savedAt: now,
       ...existing,
       ...state,
-      savedAt: new Date().toISOString(),
     };
+    merged.savedAt = now;
     localStorage.setItem(SESSION_KEY, JSON.stringify(merged));
   } catch {
     // localStorage unavailable — silently fail
