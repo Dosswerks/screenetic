@@ -47,7 +47,7 @@ function App() {
   const mainRef = useRef<HTMLElement>(null);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/screenetic">
       <AuthProvider>
         <DeviceProvider>
           <FocusOnNavigate mainRef={mainRef} />
